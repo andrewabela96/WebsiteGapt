@@ -1,0 +1,21 @@
+﻿@model GaptWebsite.Models.News
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Title - Details</h2>
+
+<div>
+    <p style="float:left"><img src="~/Content/time.png" width="20" alt="time" /></p>
+    <p class="post-subtitle">
+        @Model.Time
+        <img src="~/Content/location.png" width="20" alt="location" />
+        @Model.Location
+    </p>   
+    <p>@Model.Description</p>   
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

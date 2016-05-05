@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h1>Faculty of ICT</h1>
+<p class="lead">This site is built for demonstration purposes.  It is used to get the relevant events on the FICT App.</p>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>News</h2>
+        <p>
+            View the Faculty of ICT news @Html.ActionLink("here", "Index", "Ict").  The secretary can login to create, edit or delete an event.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>APIs</h2>
+        <p>
+            For the full list of APIs click here.  These return the relevant data to display on the FICT app.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Timetable</h2>
+        <p>
+            View the timetable here.  The secretary can login to update or submit a new timetable.
+        </p>
+    </div>
+</div>

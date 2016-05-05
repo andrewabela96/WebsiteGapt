@@ -1,0 +1,81 @@
+﻿body {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.margins
+{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+
+.topmargin
+{
+    margin-top: 5%;
+}
+
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+/*news section*/
+.post-preview > a {
+  color: #404040;
+}
+.post-preview > a:hover,
+.post-preview > a:focus {
+  text-decoration: none;
+  color: #0085a1;
+}
+.post-preview > a > .post-title {
+  font-size: 30px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+.post-preview > a > .post-subtitle {
+  padding-left:25px;
+  font-weight: 300;
+  font-size:18px;
+  margin-bottom: 10px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
