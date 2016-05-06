@@ -8,14 +8,21 @@
 
 <div>
     <p style="float:left"><img src="~/Content/time.png" width="20" alt="time" /></p>
-    <p class="post-subtitle">
+    <h4 style="margin-left:25px">
         @Model.Time
         <img src="~/Content/location.png" width="20" alt="location" />
         @Model.Location
-    </p>   
-    <p>@Model.Description</p>   
+    </h4>
+    <p>@Model.Description</p>
 </div>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn btn-default" })
+    </p>
+}
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("< Back to List", "Index", null, new { @class = "btn btn-default" })
 </p>

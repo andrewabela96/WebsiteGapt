@@ -60,6 +60,11 @@
   margin-bottom: 10px;
 }
 
+.subtitle
+{
+  font-size:18px;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

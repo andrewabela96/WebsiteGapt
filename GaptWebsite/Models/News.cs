@@ -11,14 +11,24 @@ namespace GaptWebsite.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     public partial class News
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Title Required")]
         public string Title { get; set; }
+
+        [DisplayName("Date and Time")]
+        [Required(ErrorMessage = "Date Required")]
         public System.DateTime Time { get; set; }
+
+        [Required(ErrorMessage = "Location Required")]
         public string Location { get; set; }
+
         public string Category { get; set; }
+        [Required(ErrorMessage = "Description Required")]
         public string Description { get; set; }
     }
 }
