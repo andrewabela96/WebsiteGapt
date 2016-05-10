@@ -8,9 +8,10 @@
 @if (User.Identity.IsAuthenticated)
 {
      <p>
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary", @style= "font-size:18px" })
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary", @style = "font-size:18px" })
     </p>
 }
+
 
 @foreach (var item in Model)
 {
@@ -21,17 +22,17 @@
             </h2>
             <p style="float:left"><img src="~/Content/time.png" width="20" alt="time" /></p>
             <p class="post-subtitle">
-                @item.Time
+                @item.Dtime
                 <img src="~/Content/location.png" width="20" alt="location"/>
                 @item.Location
             </p>  
-            @if (item.Description.Length < 200)
+            @if (item.Ndescription.Length < 200)
             {
-                <p>@item.Description.ToString()</p>
+                <p>@item.Ndescription.ToString()</p>
             }
             else
             {
-                <p>@item.Description.ToString().Substring(0, 200) ...</p>
+                <p>@item.Ndescription.ToString().Substring(0, 200) ...</p>
             } 
         </a>
     </div>
@@ -46,46 +47,4 @@
     <hr />
 }
 
-        <!--
-            <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Time)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Location)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th></th>
-            </tr>
-
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Time)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-                </td>
-            </tr>
-        }
-
-        </table>
-
-        -->
+      
