@@ -1,0 +1,42 @@
+﻿@model GaptWebsite.Models.Timetable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Timetable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudyUnit.UnitName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudyUnit.UnitName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -10,117 +10,112 @@ using GaptWebsite.Models;
 
 namespace GaptWebsite.Controllers
 {
-    public class IctController : Controller
+    public class TimetablesController : Controller
     {
-        private NewsFeedEntity db = new NewsFeedEntity();
+        private CoursesDBEntities db = new CoursesDBEntities();
 
-        // GET: Ict
+        // GET: Timetables
         public ActionResult Index()
         {
-            var latest = db.News.Where(n => n.Dtime >= DateTime.Now);
-            var sorted = latest.OrderBy(n => n.Dtime);
-            return View(sorted.ToList());
+            var timetables = db.Timetables.Include(t => t.StudyUnit);
+            return View(timetables.ToList());
         }
 
-        // GET: Ict/Details/5
+        // GET: Timetables/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            Timetable timetable = db.Timetables.Find(id);
+            if (timetable == null)
             {
                 return HttpNotFound();
             }
-            return View(news);
+            return View(timetable);
         }
 
-        // GET: Ict/Create
-        [Authorize]
+        // GET: Timetables/Create
         public ActionResult Create()
         {
+            ViewBag.UnitID = new SelectList(db.StudyUnits, "UnitID", "UnitName");
             return View();
         }
 
-        // POST: Ict/Create
+        // POST: Timetables/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Dtime,Location,Category,Ndescription")] News news)
+        public ActionResult Create([Bind(Include = "ID,tTime,UnitID,tDate")] Timetable timetable)
         {
             if (ModelState.IsValid)
             {
-                news.Category = "Faculty of ICT";
-                db.News.Add(news);
+                db.Timetables.Add(timetable);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(news);
+            ViewBag.UnitID = new SelectList(db.StudyUnits, "UnitID", "UnitName", timetable.UnitID);
+            return View(timetable);
         }
 
-        // GET: Ict/Edit/5
-        [Authorize]
+        // GET: Timetables/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            Timetable timetable = db.Timetables.Find(id);
+            if (timetable == null)
             {
                 return HttpNotFound();
             }
-            return View(news);
+            ViewBag.UnitID = new SelectList(db.StudyUnits, "UnitID", "UnitName", timetable.UnitID);
+            return View(timetable);
         }
 
-        // POST: Ict/Edit/5
+        // POST: Timetables/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Time,Location,Category,Description")] News news)
+        public ActionResult Edit([Bind(Include = "ID,tTime,UnitID,tDate")] Timetable timetable)
         {
             if (ModelState.IsValid)
             {
-                news.Category = "Faculty of ICT";
-                db.Entry(news).State = EntityState.Modified;
+                db.Entry(timetable).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(news);
+            ViewBag.UnitID = new SelectList(db.StudyUnits, "UnitID", "UnitName", timetable.UnitID);
+            return View(timetable);
         }
 
-        // GET: Ict/Delete/5
-        [Authorize]
+        // GET: Timetables/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            News news = db.News.Find(id);
-            if (news == null)
+            Timetable timetable = db.Timetables.Find(id);
+            if (timetable == null)
             {
                 return HttpNotFound();
             }
-            return View(news);
+            return View(timetable);
         }
 
-        // POST: Ict/Delete/5
-        [Authorize]
+        // POST: Timetables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            News news = db.News.Find(id);
-            db.News.Remove(news);
+            Timetable timetable = db.Timetables.Find(id);
+            db.Timetables.Remove(timetable);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

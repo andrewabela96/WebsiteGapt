@@ -216,10 +216,29 @@
     <Compile Include="Controllers\IctController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\TimetablesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Cours.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IctData.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IctData.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IctData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IctData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IctData.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IctNews.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -236,9 +255,33 @@
       <DependentUpon>IctNews.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Lecturer.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\News.cs">
-      <DependentUpon>IctNews.tt</DependentUpon>
+      <DependentUpon>NewsIct.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NewsIct.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewsIct.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NewsIct.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewsIct.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NewsIct.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewsIct.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudyUnit.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Timetable.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -255,6 +298,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\IctData.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IctData.edmx</DependentUpon>
+      <LastGenOutput>IctData.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\IctData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IctData.edmx</DependentUpon>
+      <LastGenOutput>IctData.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\IctNews.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>IctNews.edmx</DependentUpon>
@@ -264,6 +317,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>IctNews.edmx</DependentUpon>
       <LastGenOutput>IctNews.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\NewsIct.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewsIct.edmx</DependentUpon>
+      <LastGenOutput>NewsIct.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\NewsIct.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewsIct.edmx</DependentUpon>
+      <LastGenOutput>NewsIct.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -358,6 +421,21 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <EntityDeploy Include="Models\NewsIct.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NewsIct.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\NewsIct.edmx.diagram">
+      <DependentUpon>NewsIct.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\IctData.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IctData.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\IctData.edmx.diagram">
+      <DependentUpon>IctData.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\GaptWebsite - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DatePickerReady.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -415,6 +493,11 @@
     <Content Include="Views\Ict\Details.cshtml" />
     <Content Include="Views\Ict\Edit.cshtml" />
     <Content Include="Views\Ict\Index.cshtml" />
+    <Content Include="Views\Timetables\Create.cshtml" />
+    <Content Include="Views\Timetables\Delete.cshtml" />
+    <Content Include="Views\Timetables\Details.cshtml" />
+    <Content Include="Views\Timetables\Edit.cshtml" />
+    <Content Include="Views\Timetables\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
