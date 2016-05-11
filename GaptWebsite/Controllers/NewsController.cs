@@ -16,13 +16,14 @@ namespace GaptWebsite.Controllers
 {
     public class NewsController : ApiController
     {
-        private NewsFeedEntities db = new NewsFeedEntities();
+        private NewsFeedEntity db = new NewsFeedEntity();
     
         // GET: api/News
-        public string GetNews()
+        public IQueryable GetNews()
         {
-            var json=new JavaScriptSerializer().Serialize(db.News);
-            return json;          //var urls = db.News.Select(i => new { i.Title, i.Time, i.Location, i.Description });
+            return db.News;        
+            //var urls = db.News.Select(i => new { i.Title, i.Dtime, i.Location, i.Ndescription });
+            //return urls;
         }
 
         // GET: api/News/5

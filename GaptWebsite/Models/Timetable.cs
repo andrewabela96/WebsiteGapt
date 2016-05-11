@@ -12,13 +12,13 @@ namespace GaptWebsite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class News
+    public partial class Timetable
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public System.DateTime Dtime { get; set; }
-        public string Location { get; set; }
-        public string Category { get; set; }
-        public string Ndescription { get; set; }
+        public int ID { get; set; }
+        public System.TimeSpan tTime { get; set; }
+        public string UnitID { get; set; }
+        public string tDate { get; set; }
+    
+        public virtual StudyUnit StudyUnit { get; set; }
     }
 }

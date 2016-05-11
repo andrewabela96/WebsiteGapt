@@ -1,0 +1,51 @@
+﻿@model IEnumerable<GaptWebsite.Models.Timetable>
+
+@{
+    ViewBag.Title = "Index";
+    string[] dayofweek = { "Monday", "Tuesday", "Wedensday", "Thursday", "Friday" };
+    TimeSpan[] time = { new TimeSpan(8, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(10, 0, 0), new TimeSpan(11, 0, 0) };
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Create New", "Create")
+<table class="table table-bordered">
+
+    
+
+<tr>
+    <td></td>
+    <td>Monday</td>
+    <td>Tuesday</td>
+    <td>Wednesday</td>
+    <td>Thursday</td>
+    <td>Friday</td>
+</tr>
+
+        @foreach (var hour in time)
+        {
+            <tr>
+                <td>@hour</td>
+                @foreach (var day in dayofweek)
+                {
+                    <td>
+                        @foreach (var item in Model)
+                        {
+
+                            if (item.tDate.Contains(day) && (item.tTime == hour) && (item.StudyUnit.UnitYear == 1))
+                            {
+                                <div class="rightmargin">
+                                    @Html.DisplayFor(modelItem => item.StudyUnit.UnitID)
+                                 </div>
+
+                                     @Html.ActionLink("Details ", "Details", new { id = item.ID })
+                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
+                            }
+                        }
+                     </td>
+                }
+              </tr>
+            }
+ 
+
+</table>

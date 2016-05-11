@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CoursesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="CourseDescription" Type="text" Nullable="false" />
+          <Property Name="CourseHeadID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lecturers">
+          <Key>
+            <PropertyRef Name="LecturerID" />
+          </Key>
+          <Property Name="LecturerID" Type="int" Nullable="false" />
+          <Property Name="LecturerName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LecturerEmail" Type="varchar" MaxLength="320" Nullable="false" />
+          <Property Name="LecturerRoom" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="StudyUnits">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UnitName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UnitDescription" Type="text" Nullable="false" />
+          <Property Name="UnitCredits" Type="int" Nullable="false" />
+          <Property Name="UnitSemester" Type="int" Nullable="false" />
+          <Property Name="UnitYear" Type="int" Nullable="false" />
+          <Property Name="UnitElective" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UnitCompensatable" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="UnitExam" Type="varchar" MaxLength="6" />
+          <Property Name="UnitAssignment" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="Timetable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="UnitID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="tDate" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="UnitCourse">
+          <Key>
+            <PropertyRef Name="UnitID" />
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="UnitID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CourseID" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnitLecturer">
+          <Key>
+            <PropertyRef Name="UnitID" />
+            <PropertyRef Name="LecturerID" />
+          </Key>
+          <Property Name="UnitID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LecturerID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Courses__CourseH__403A8C7D">
+          <End Role="Lecturers" Type="Self.Lecturers" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturers">
+              <PropertyRef Name="LecturerID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="CourseHeadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Timetable__UnitI__4AB81AF0">
+          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyUnits">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UnitCours__Cours__44FF419A">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="UnitCourse" Type="Self.UnitCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="UnitCourse">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UnitCours__UnitI__45F365D3">
+          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1" />
+          <End Role="UnitCourse" Type="Self.UnitCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyUnits">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="UnitCourse">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UnitLectu__Lectu__46E78A0C">
+          <End Role="Lecturers" Type="Self.Lecturers" Multiplicity="1" />
+          <End Role="UnitLecturer" Type="Self.UnitLecturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturers">
+              <PropertyRef Name="LecturerID" />
+            </Principal>
+            <Dependent Role="UnitLecturer">
+              <PropertyRef Name="LecturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UnitLectu__UnitI__47DBAE45">
+          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1" />
+          <End Role="UnitLecturer" Type="Self.UnitLecturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyUnits">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="UnitLecturer">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoursesDBModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lecturers" EntityType="Self.Lecturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudyUnits" EntityType="Self.StudyUnits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timetable" EntityType="Self.Timetable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnitCourse" EntityType="Self.UnitCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnitLecturer" EntityType="Self.UnitLecturer" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Courses__CourseH__403A8C7D" Association="Self.FK__Courses__CourseH__403A8C7D">
+            <End Role="Lecturers" EntitySet="Lecturers" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Timetable__UnitI__4AB81AF0" Association="Self.FK__Timetable__UnitI__4AB81AF0">
+            <End Role="StudyUnits" EntitySet="StudyUnits" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UnitCours__Cours__44FF419A" Association="Self.FK__UnitCours__Cours__44FF419A">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="UnitCourse" EntitySet="UnitCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UnitCours__UnitI__45F365D3" Association="Self.FK__UnitCours__UnitI__45F365D3">
+            <End Role="StudyUnits" EntitySet="StudyUnits" />
+            <End Role="UnitCourse" EntitySet="UnitCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UnitLectu__Lectu__46E78A0C" Association="Self.FK__UnitLectu__Lectu__46E78A0C">
+            <End Role="Lecturers" EntitySet="Lecturers" />
+            <End Role="UnitLecturer" EntitySet="UnitLecturer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UnitLectu__UnitI__47DBAE45" Association="Self.FK__UnitLectu__UnitI__47DBAE45">
+            <End Role="StudyUnits" EntitySet="StudyUnits" />
+            <End Role="UnitLecturer" EntitySet="UnitLecturer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoursesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CourseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CourseHeadID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lecturer" Relationship="Self.FK__Courses__CourseH__403A8C7D" FromRole="Courses" ToRole="Lecturers" />
+          <NavigationProperty Name="StudyUnits" Relationship="Self.UnitCourse" FromRole="Courses" ToRole="StudyUnits" />
+        </EntityType>
+        <EntityType Name="Lecturer">
+          <Key>
+            <PropertyRef Name="LecturerID" />
+          </Key>
+          <Property Name="LecturerID" Type="Int32" Nullable="false" />
+          <Property Name="LecturerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LecturerEmail" Type="String" MaxLength="320" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LecturerRoom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK__Courses__CourseH__403A8C7D" FromRole="Lecturers" ToRole="Courses" />
+          <NavigationProperty Name="StudyUnits" Relationship="Self.UnitLecturer" FromRole="Lecturers" ToRole="StudyUnits" />
+        </EntityType>
+        <EntityType Name="StudyUnit">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UnitName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UnitDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UnitCredits" Type="Int32" Nullable="false" />
+          <Property Name="UnitSemester" Type="Int32" Nullable="false" />
+          <Property Name="UnitYear" Type="Int32" Nullable="false" />
+          <Property Name="UnitElective" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UnitCompensatable" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UnitExam" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="UnitAssignment" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Timetables" Relationship="Self.FK__Timetable__UnitI__4AB81AF0" FromRole="StudyUnits" ToRole="Timetable" />
+          <NavigationProperty Name="Courses" Relationship="Self.UnitCourse" FromRole="StudyUnits" ToRole="Courses" />
+          <NavigationProperty Name="Lecturers" Relationship="Self.UnitLecturer" FromRole="StudyUnits" ToRole="Lecturers" />
+        </EntityType>
+        <EntityType Name="Timetable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="UnitID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tDate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StudyUnit" Relationship="Self.FK__Timetable__UnitI__4AB81AF0" FromRole="Timetable" ToRole="StudyUnits" />
+        </EntityType>
+        <Association Name="FK__Courses__CourseH__403A8C7D">
+          <End Role="Lecturers" Type="Self.Lecturer" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lecturers">
+              <PropertyRef Name="LecturerID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="CourseHeadID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Timetable__UnitI__4AB81AF0">
+          <End Role="StudyUnits" Type="Self.StudyUnit" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyUnits">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UnitCourse">
+          <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
+          <End Role="StudyUnits" Type="Self.StudyUnit" Multiplicity="*" />
+        </Association>
+        <Association Name="UnitLecturer">
+          <End Role="Lecturers" Type="Self.Lecturer" Multiplicity="*" />
+          <End Role="StudyUnits" Type="Self.StudyUnit" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CoursesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="Lecturers" EntityType="Self.Lecturer" />
+          <EntitySet Name="StudyUnits" EntityType="Self.StudyUnit" />
+          <EntitySet Name="Timetables" EntityType="Self.Timetable" />
+          <AssociationSet Name="FK__Courses__CourseH__403A8C7D" Association="Self.FK__Courses__CourseH__403A8C7D">
+            <End Role="Lecturers" EntitySet="Lecturers" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Timetable__UnitI__4AB81AF0" Association="Self.FK__Timetable__UnitI__4AB81AF0">
+            <End Role="StudyUnits" EntitySet="StudyUnits" />
+            <End Role="Timetable" EntitySet="Timetables" />
+          </AssociationSet>
+          <AssociationSet Name="UnitCourse" Association="Self.UnitCourse">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="StudyUnits" EntitySet="StudyUnits" />
+          </AssociationSet>
+          <AssociationSet Name="UnitLecturer" Association="Self.UnitLecturer">
+            <End Role="Lecturers" EntitySet="Lecturers" />
+            <End Role="StudyUnits" EntitySet="StudyUnits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoursesDBModelStoreContainer" CdmEntityContainer="CoursesDBEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="CoursesDBModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
+                <ScalarProperty Name="CourseHeadID" ColumnName="CourseHeadID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lecturers">
+            <EntityTypeMapping TypeName="CoursesDBModel.Lecturer">
+              <MappingFragment StoreEntitySet="Lecturers">
+                <ScalarProperty Name="LecturerID" ColumnName="LecturerID" />
+                <ScalarProperty Name="LecturerName" ColumnName="LecturerName" />
+                <ScalarProperty Name="LecturerEmail" ColumnName="LecturerEmail" />
+                <ScalarProperty Name="LecturerRoom" ColumnName="LecturerRoom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudyUnits">
+            <EntityTypeMapping TypeName="CoursesDBModel.StudyUnit">
+              <MappingFragment StoreEntitySet="StudyUnits">
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="UnitDescription" ColumnName="UnitDescription" />
+                <ScalarProperty Name="UnitCredits" ColumnName="UnitCredits" />
+                <ScalarProperty Name="UnitSemester" ColumnName="UnitSemester" />
+                <ScalarProperty Name="UnitYear" ColumnName="UnitYear" />
+                <ScalarProperty Name="UnitElective" ColumnName="UnitElective" />
+                <ScalarProperty Name="UnitCompensatable" ColumnName="UnitCompensatable" />
+                <ScalarProperty Name="UnitExam" ColumnName="UnitExam" />
+                <ScalarProperty Name="UnitAssignment" ColumnName="UnitAssignment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timetables">
+            <EntityTypeMapping TypeName="CoursesDBModel.Timetable">
+              <MappingFragment StoreEntitySet="Timetable">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="tTime" ColumnName="tTime" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="tDate" ColumnName="tDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UnitCourse" TypeName="CoursesDBModel.UnitCourse" StoreEntitySet="UnitCourse">
+            <EndProperty Name="Courses">
+              <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            </EndProperty>
+            <EndProperty Name="StudyUnits">
+              <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UnitLecturer" TypeName="CoursesDBModel.UnitLecturer" StoreEntitySet="UnitLecturer">
+            <EndProperty Name="Lecturers">
+              <ScalarProperty Name="LecturerID" ColumnName="LecturerID" />
+            </EndProperty>
+            <EndProperty Name="StudyUnits">
+              <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
