@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CoursesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CoursesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Courses">
           <Key>
             <PropertyRef Name="CourseID" />
@@ -22,6 +22,7 @@
           <Property Name="LecturerName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="LecturerEmail" Type="varchar" MaxLength="320" Nullable="false" />
           <Property Name="LecturerRoom" Type="varchar" MaxLength="20" />
+          <Property Name="LecturerJob" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="StudyUnits">
           <Key>
@@ -33,10 +34,9 @@
           <Property Name="UnitCredits" Type="int" Nullable="false" />
           <Property Name="UnitSemester" Type="int" Nullable="false" />
           <Property Name="UnitYear" Type="int" Nullable="false" />
-          <Property Name="UnitElective" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="UnitCompensatable" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="UnitExam" Type="varchar" MaxLength="6" />
-          <Property Name="UnitAssignment" Type="varchar" MaxLength="6" />
+          <Property Name="UnitElective" Type="bit" />
+          <Property Name="UnitCompensatable" Type="bit" />
+          <Property Name="Deadline" Type="date" />
         </EntityType>
         <EntityType Name="Timetable">
           <Key>
@@ -46,6 +46,8 @@
           <Property Name="tTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="UnitID" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="tDate" Type="nvarchar" MaxLength="10" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="DateModified" Type="date" />
         </EntityType>
         <EntityType Name="UnitCourse">
           <Key>
@@ -167,8 +169,7 @@
             <End Role="UnitLecturer" EntitySet="UnitLecturer" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CoursesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -193,6 +194,7 @@
           <Property Name="LecturerRoom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Courses" Relationship="Self.FK__Courses__CourseH__403A8C7D" FromRole="Lecturers" ToRole="Courses" />
           <NavigationProperty Name="StudyUnits" Relationship="Self.UnitLecturer" FromRole="Lecturers" ToRole="StudyUnits" />
+          <Property Name="LecturerJob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="StudyUnit">
           <Key>
@@ -204,13 +206,12 @@
           <Property Name="UnitCredits" Type="Int32" Nullable="false" />
           <Property Name="UnitSemester" Type="Int32" Nullable="false" />
           <Property Name="UnitYear" Type="Int32" Nullable="false" />
-          <Property Name="UnitElective" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UnitCompensatable" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UnitExam" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="UnitAssignment" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="UnitElective" Type="Boolean" />
+          <Property Name="UnitCompensatable" Type="Boolean" />
           <NavigationProperty Name="Timetables" Relationship="Self.FK__Timetable__UnitI__4AB81AF0" FromRole="StudyUnits" ToRole="Timetable" />
           <NavigationProperty Name="Courses" Relationship="Self.UnitCourse" FromRole="StudyUnits" ToRole="Courses" />
           <NavigationProperty Name="Lecturers" Relationship="Self.UnitLecturer" FromRole="StudyUnits" ToRole="Lecturers" />
+          <Property Name="Deadline" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Timetable">
           <Key>
@@ -221,6 +222,8 @@
           <Property Name="UnitID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tDate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="StudyUnit" Relationship="Self.FK__Timetable__UnitI__4AB81AF0" FromRole="Timetable" ToRole="StudyUnits" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="DateModified" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK__Courses__CourseH__403A8C7D">
           <End Role="Lecturers" Type="Self.Lecturer" Multiplicity="1" />
@@ -295,6 +298,7 @@
           <EntitySetMapping Name="Lecturers">
             <EntityTypeMapping TypeName="CoursesDBModel.Lecturer">
               <MappingFragment StoreEntitySet="Lecturers">
+                <ScalarProperty Name="LecturerJob" ColumnName="LecturerJob" />
                 <ScalarProperty Name="LecturerID" ColumnName="LecturerID" />
                 <ScalarProperty Name="LecturerName" ColumnName="LecturerName" />
                 <ScalarProperty Name="LecturerEmail" ColumnName="LecturerEmail" />
@@ -305,6 +309,7 @@
           <EntitySetMapping Name="StudyUnits">
             <EntityTypeMapping TypeName="CoursesDBModel.StudyUnit">
               <MappingFragment StoreEntitySet="StudyUnits">
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
                 <ScalarProperty Name="UnitID" ColumnName="UnitID" />
                 <ScalarProperty Name="UnitName" ColumnName="UnitName" />
                 <ScalarProperty Name="UnitDescription" ColumnName="UnitDescription" />
@@ -313,14 +318,14 @@
                 <ScalarProperty Name="UnitYear" ColumnName="UnitYear" />
                 <ScalarProperty Name="UnitElective" ColumnName="UnitElective" />
                 <ScalarProperty Name="UnitCompensatable" ColumnName="UnitCompensatable" />
-                <ScalarProperty Name="UnitExam" ColumnName="UnitExam" />
-                <ScalarProperty Name="UnitAssignment" ColumnName="UnitAssignment" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Timetables">
             <EntityTypeMapping TypeName="CoursesDBModel.Timetable">
               <MappingFragment StoreEntitySet="Timetable">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="tTime" ColumnName="tTime" />
                 <ScalarProperty Name="UnitID" ColumnName="UnitID" />
