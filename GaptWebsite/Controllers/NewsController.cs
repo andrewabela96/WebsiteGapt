@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using GaptWebsite.Models;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.IO;
 
 namespace GaptWebsite.Controllers
 {
@@ -21,6 +22,17 @@ namespace GaptWebsite.Controllers
         // GET: api/News
         public IQueryable GetNews()
         {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("www.g.com");
+            request.Method = "GET";
+            String test = String.Empty;
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+                test = reader.ReadToEnd();
+                reader.Close();
+                dataStream.Close();
+            }
             return db.News;    
                 
             //var urls = db.News.Select(i => new { i.Title, i.Dtime, i.Location, i.Ndescription });
