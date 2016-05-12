@@ -18,6 +18,8 @@ namespace GaptWebsite.Models
         public System.TimeSpan tTime { get; set; }
         public string UnitID { get; set; }
         public string tDate { get; set; }
+        public int LocationID { get; set; }
+        public Nullable<System.DateTime> DateModified { get; set; }
     
         public virtual StudyUnit StudyUnit { get; set; }
     }

@@ -21,7 +21,8 @@ namespace GaptWebsite.Controllers
         // GET: api/News
         public IQueryable GetNews()
         {
-            return db.News;        
+            return db.News;    
+                
             //var urls = db.News.Select(i => new { i.Title, i.Dtime, i.Location, i.Ndescription });
             //return urls;
         }
