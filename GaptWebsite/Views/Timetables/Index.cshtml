@@ -2,11 +2,12 @@
 
 @{
     ViewBag.Title = "Index";
-    string[] dayofweek = { "Monday", "Tuesday", "Wedensday", "Thursday", "Friday" };
-    TimeSpan[] time = { new TimeSpan(8, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(10, 0, 0), new TimeSpan(11, 0, 0) };
+    string[] dayofweek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+    TimeSpan[] time = { new TimeSpan(8, 0, 0), new TimeSpan(9, 0, 0), new TimeSpan(10, 0, 0), new TimeSpan(11, 0, 0), new TimeSpan(12, 0, 0), new TimeSpan(13, 0, 0), new TimeSpan(14, 0, 0), new TimeSpan(15, 0, 0), new TimeSpan(16, 0, 0), new TimeSpan(17, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(19, 0, 0) };
 }
 
-<h2>Index</h2>
+<h1>Timetables</h1>
+<h3>First year</h3>
 @Html.ActionLink("Create New", "Create")
 <table class="table table-bordered">
 
@@ -49,3 +50,107 @@
  
 
 </table>
+<h3>Second year</h3>
+<table class="table table-bordered">
+
+
+
+    <tr>
+        <td></td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+    </tr>
+
+    @foreach (var hour in time)
+    {
+        <tr>
+            <td>@hour</td>
+            @foreach (var day in dayofweek)
+            {
+                <td>
+                        @foreach (var item in Model)
+                        {
+
+                            if (item.tDate.Contains(day) && (item.tTime == hour) && (item.StudyUnit.UnitYear == 2))
+                            {
+                                DateTime a = new DateTime();
+                                DateTime b = DateTime.Now;
+                                int hours = (b - a).Hours;
+                                if (hours > 24)
+                                {
+                                    <div class="rightmargin">
+
+
+                                        <font color="black">
+
+                                            @Html.DisplayFor(modelItem => item.StudyUnit.UnitID)
+                                        </font>
+                                  
+                                    </div>
+                                }
+                                else
+                                {
+                                    <font color="red">
+
+                                        @Html.DisplayFor(modelItem => item.StudyUnit.UnitID)
+                                    </font>
+                                }
+                                    @Html.ActionLink("Details ", "Details", new { id = item.ID })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
+                                }
+                            }
+                </td>
+            }
+        </tr>
+    }
+
+
+</table>
+
+<h3>Third year</h3>
+<table class="table table-bordered">
+
+
+
+    <tr>
+        <td></td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+    </tr>
+
+    @foreach (var hour in time)
+    {
+        <tr>
+            <td>@hour</td>
+            @foreach (var day in dayofweek)
+                {
+                <td>
+                    @foreach (var item in Model)
+                    {
+
+                        if (item.tDate.Contains(day) && (item.tTime == hour) && (item.StudyUnit.UnitYear == 3))
+                        {
+                            <div class="rightmargin">
+                                @Html.DisplayFor(modelItem => item.StudyUnit.UnitID)
+                            </div>
+
+                                @Html.ActionLink("Details ", "Details", new { id = item.ID })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+
+                        }
+                    }
+                </td>
+            }
+        </tr>
+    }
+
+
+</table>
+

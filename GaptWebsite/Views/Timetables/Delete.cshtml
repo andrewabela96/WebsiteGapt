@@ -11,8 +11,25 @@
     <h4>Timetable</h4>
     <hr />
     <dl class="dl-horizontal">
+       
+
         <dt>
-            @Html.DisplayNameFor(model => model.tTime)
+            Unit Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudyUnit.UnitName)
+        </dd>
+        <dt>
+            Unit ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudyUnit.UnitID)
+        </dd>
+
+        <dt>
+            Time
         </dt>
 
         <dd>
@@ -20,19 +37,26 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tDate)
+            Day of week
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.tDate)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.StudyUnit.UnitName)
+            Room
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StudyUnit.UnitName)
+            @Html.DisplayFor(model => model.Location.RoomFloor)
+        </dd>
+
+        <dt>
+            Date Modified
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateModified)
         </dd>
 
     </dl>
