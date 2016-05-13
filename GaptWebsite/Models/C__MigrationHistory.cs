@@ -12,16 +12,11 @@ namespace GaptWebsite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Timetable
+    public partial class C__MigrationHistory
     {
-        public int ID { get; set; }
-        public System.TimeSpan tTime { get; set; }
-        public string UnitID { get; set; }
-        public string tDate { get; set; }
-        public int LocationID { get; set; }
-        public Nullable<System.DateTime> DateModified { get; set; }
-    
-        public virtual StudyUnit StudyUnit { get; set; }
-        public virtual Location Location { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

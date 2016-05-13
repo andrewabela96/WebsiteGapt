@@ -28,10 +28,9 @@ namespace GaptWebsite.Models
         public int UnitCredits { get; set; }
         public int UnitSemester { get; set; }
         public int UnitYear { get; set; }
-        public string UnitElective { get; set; }
-        public string UnitCompensatable { get; set; }
-        public string UnitExam { get; set; }
-        public string UnitAssignment { get; set; }
+        public Nullable<bool> UnitElective { get; set; }
+        public Nullable<bool> UnitCompensatable { get; set; }
+        public Nullable<System.DateTime> Deadline { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Timetable> Timetables { get; set; }
