@@ -17,7 +17,6 @@ namespace GaptWebsite.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Lecturer()
         {
-            this.Courses = new HashSet<Cours>();
             this.StudyUnits = new HashSet<StudyUnit>();
         }
     
@@ -25,9 +24,8 @@ namespace GaptWebsite.Models
         public string LecturerName { get; set; }
         public string LecturerEmail { get; set; }
         public string LecturerRoom { get; set; }
+        public string LecturerJob { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cours> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudyUnit> StudyUnits { get; set; }
     }

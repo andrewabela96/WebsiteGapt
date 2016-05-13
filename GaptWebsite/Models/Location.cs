@@ -12,19 +12,22 @@ namespace GaptWebsite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cours
+    public partial class Location
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cours()
+        public Location()
         {
-            this.StudyUnits = new HashSet<StudyUnit>();
+            this.Timetables = new HashSet<Timetable>();
         }
     
-        public string CourseID { get; set; }
-        public string CourseName { get; set; }
-        public string CourseDescription { get; set; }
+        public int ID { get; set; }
+        public string Room { get; set; }
+        public string Block { get; set; }
+        public string RoomFloor { get; set; }
+        public string LocationX { get; set; }
+        public string LocationY { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudyUnit> StudyUnits { get; set; }
+        public virtual ICollection<Timetable> Timetables { get; set; }
     }
 }

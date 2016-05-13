@@ -12,16 +12,13 @@ namespace GaptWebsite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Timetable
+    public partial class AspNetUserClaim
     {
-        public int ID { get; set; }
-        public System.TimeSpan tTime { get; set; }
-        public string UnitID { get; set; }
-        public string tDate { get; set; }
-        public int LocationID { get; set; }
-        public Nullable<System.DateTime> DateModified { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual StudyUnit StudyUnit { get; set; }
-        public virtual Location Location { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }
