@@ -23,9 +23,7 @@ namespace GaptWebsite.Models
         public string CourseID { get; set; }
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
-        public int CourseHeadID { get; set; }
     
-        public virtual Lecturer Lecturer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudyUnit> StudyUnits { get; set; }
     }

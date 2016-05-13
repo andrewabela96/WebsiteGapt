@@ -28,7 +28,9 @@ namespace GaptWebsite.Controllers
             string url = "https://graph.facebook.com/v2.6/116437555088006/events";
             Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
             string since = unixTimestamp.ToString();
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url+"?since="+since+"&access_token=");
+            string appId = System.Web.Configuration.WebConfigurationManager.AppSettings["FacebookAppId"];
+            string appSecret= System.Web.Configuration.WebConfigurationManager.AppSettings["FacebookSecret"];
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url+"?since="+since+ "&access_token="+appId+"|"+appSecret);
             request.Method = "GET";
             String test = String.Empty;
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -60,7 +62,7 @@ namespace GaptWebsite.Controllers
                 //remove old
                 if(temp.Dtime>DateTime.Now)
                 {
-                    FbData ictnews = new FbData(temp.Title, temp.Ndescription, temp.Dtime, new Place(temp.Location));
+                    FbData ictnews = new FbData(temp.Title, temp.Ndescription, temp.Dtime, temp.Category, new Place(temp.Location));
                     ictWrapper.data.Add(ictnews);
                 }
       

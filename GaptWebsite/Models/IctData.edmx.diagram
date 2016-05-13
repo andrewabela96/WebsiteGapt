@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="CoursesDBModel.Lecturer" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CoursesDBModel.StudyUnit" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="CoursesDBModel.Timetable" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
-        <AssociationConnector ManuallyRouted="false" Association="CoursesDBModel.FK__Courses__CourseH__403A8C7D" />
         <AssociationConnector Association="CoursesDBModel.FK__Timetable__UnitI__4AB81AF0" ManuallyRouted="false" />
         <AssociationConnector Association="CoursesDBModel.UnitCourse" ManuallyRouted="false" />
         <AssociationConnector Association="CoursesDBModel.UnitLecturer" ManuallyRouted="false" />

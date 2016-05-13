@@ -230,9 +230,6 @@
     <Compile Include="Models\AspNetUserClaim.cs">
       <DependentUpon>IctData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>IctData.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Cours.cs">
       <DependentUpon>IctData.tt</DependentUpon>
     </Compile>
@@ -245,6 +242,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IctData.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IctData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IctData.cs">
       <AutoGen>True</AutoGen>

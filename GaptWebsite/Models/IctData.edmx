@@ -73,7 +73,6 @@
           <Property Name="CourseID" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="CourseName" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="CourseDescription" Type="text" Nullable="false" />
-          <Property Name="CourseHeadID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Lecturers">
           <Key>
@@ -331,8 +330,6 @@
           <Property Name="CourseID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="CourseName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CourseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CourseHeadID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Lecturer" Relationship="Self.FK__Courses__CourseH__403A8C7D" FromRole="Courses" ToRole="Lecturers" />
           <NavigationProperty Name="StudyUnits" Relationship="Self.UnitCourse" FromRole="Courses" ToRole="StudyUnits" />
         </EntityType>
         <EntityType Name="Lecturer">
@@ -343,7 +340,6 @@
           <Property Name="LecturerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LecturerEmail" Type="String" MaxLength="320" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LecturerRoom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Courses" Relationship="Self.FK__Courses__CourseH__403A8C7D" FromRole="Lecturers" ToRole="Courses" />
           <NavigationProperty Name="StudyUnits" Relationship="Self.UnitLecturer" FromRole="Lecturers" ToRole="StudyUnits" />
           <Property Name="LecturerJob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -377,18 +373,6 @@
           <Property Name="DateModified" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Location" Relationship="CoursesDBModel.FK__Timetable__Locat__5CD6CB2B" FromRole="Timetable" ToRole="Location" />
         </EntityType>
-        <Association Name="FK__Courses__CourseH__403A8C7D">
-          <End Role="Lecturers" Type="Self.Lecturer" Multiplicity="1" />
-          <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Lecturers">
-              <PropertyRef Name="LecturerID" />
-            </Principal>
-            <Dependent Role="Courses">
-              <PropertyRef Name="CourseHeadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Timetable__UnitI__4AB81AF0">
           <End Role="StudyUnits" Type="Self.StudyUnit" Multiplicity="1" />
           <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
@@ -414,10 +398,6 @@
           <EntitySet Name="Lecturers" EntityType="Self.Lecturer" />
           <EntitySet Name="StudyUnits" EntityType="Self.StudyUnit" />
           <EntitySet Name="Timetables" EntityType="Self.Timetable" />
-          <AssociationSet Name="FK__Courses__CourseH__403A8C7D" Association="Self.FK__Courses__CourseH__403A8C7D">
-            <End Role="Lecturers" EntitySet="Lecturers" />
-            <End Role="Courses" EntitySet="Courses" />
-          </AssociationSet>
           <AssociationSet Name="FK__Timetable__UnitI__4AB81AF0" Association="Self.FK__Timetable__UnitI__4AB81AF0">
             <End Role="StudyUnits" EntitySet="StudyUnits" />
             <End Role="Timetable" EntitySet="Timetables" />
@@ -580,7 +560,6 @@
                 <ScalarProperty Name="CourseID" ColumnName="CourseID" />
                 <ScalarProperty Name="CourseName" ColumnName="CourseName" />
                 <ScalarProperty Name="CourseDescription" ColumnName="CourseDescription" />
-                <ScalarProperty Name="CourseHeadID" ColumnName="CourseHeadID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
