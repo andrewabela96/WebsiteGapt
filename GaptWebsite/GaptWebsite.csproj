@@ -221,9 +221,26 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Cours.cs">
       <DependentUpon>IctData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FbData.cs" />
+    <Compile Include="Models\FbWrapper.cs" />
     <Compile Include="Models\IctData.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -258,6 +275,9 @@
     <Compile Include="Models\Lecturer.cs">
       <DependentUpon>IctData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Location.cs">
+      <DependentUpon>IctData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\News.cs">
       <DependentUpon>NewsIct.tt</DependentUpon>
@@ -277,12 +297,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewsIct.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Place.cs" />
     <Compile Include="Models\StudyUnit.cs">
       <DependentUpon>IctData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Timetable.cs">
       <DependentUpon>IctData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Where.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
