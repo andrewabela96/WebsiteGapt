@@ -18,6 +18,7 @@ namespace GaptWebsite.Models
         public Cours()
         {
             this.StudyUnits = new HashSet<StudyUnit>();
+            this.Lecturers = new HashSet<Lecturer>();
         }
     
         public string CourseID { get; set; }
@@ -26,5 +27,7 @@ namespace GaptWebsite.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudyUnit> StudyUnits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Lecturer> Lecturers { get; set; }
     }
 }

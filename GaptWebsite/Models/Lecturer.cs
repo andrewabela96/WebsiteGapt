@@ -25,8 +25,10 @@ namespace GaptWebsite.Models
         public string LecturerEmail { get; set; }
         public string LecturerRoom { get; set; }
         public string LecturerJob { get; set; }
+        public string Course { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StudyUnit> StudyUnits { get; set; }
+        public virtual Cours Cours { get; set; }
     }
 }

@@ -83,6 +83,7 @@
           <Property Name="LecturerEmail" Type="varchar" MaxLength="320" Nullable="false" />
           <Property Name="LecturerRoom" Type="varchar" MaxLength="20" />
           <Property Name="LecturerJob" Type="nvarchar" MaxLength="20" />
+          <Property Name="Course" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -136,8 +137,24 @@
           <Property Name="UnitID" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="LecturerID" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Timetable__Locat__5CD6CB2B">
-          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+        <Association Name="FK__Lecturers__Cours__72C60C4A">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lecturers" Type="Self.Lecturers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Lecturers">
+              <PropertyRef Name="Course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Timetable__Locat__71D1E811">
+          <End Role="Location" Type="Self.Location" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Location">
@@ -148,8 +165,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Timetable__UnitI__4AB81AF0">
-          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1" />
+        <Association Name="FK__Timetable__UnitI__70DDC3D8">
+          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StudyUnits">
@@ -160,8 +179,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UnitCours__Cours__44FF419A">
-          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+        <Association Name="FK__UnitCours__Cours__6D0D32F4">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UnitCourse" Type="Self.UnitCourse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Courses">
@@ -172,8 +193,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UnitCours__UnitI__45F365D3">
-          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1" />
+        <Association Name="FK__UnitCours__UnitI__6E01572D">
+          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UnitCourse" Type="Self.UnitCourse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StudyUnits">
@@ -184,8 +207,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UnitLectu__Lectu__46E78A0C">
-          <End Role="Lecturers" Type="Self.Lecturers" Multiplicity="1" />
+        <Association Name="FK__UnitLectu__Lectu__6EF57B66">
+          <End Role="Lecturers" Type="Self.Lecturers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UnitLecturer" Type="Self.UnitLecturer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Lecturers">
@@ -196,8 +221,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UnitLectu__UnitI__47DBAE45">
-          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1" />
+        <Association Name="FK__UnitLectu__UnitI__6FE99F9F">
+          <End Role="StudyUnits" Type="Self.StudyUnits" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UnitLecturer" Type="Self.UnitLecturer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StudyUnits">
@@ -278,27 +305,31 @@
           <EntitySet Name="Timetable" EntityType="Self.Timetable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnitCourse" EntityType="Self.UnitCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnitLecturer" EntityType="Self.UnitLecturer" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Timetable__Locat__5CD6CB2B" Association="Self.FK__Timetable__Locat__5CD6CB2B">
+          <AssociationSet Name="FK__Lecturers__Cours__72C60C4A" Association="Self.FK__Lecturers__Cours__72C60C4A">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Lecturers" EntitySet="Lecturers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Timetable__Locat__71D1E811" Association="Self.FK__Timetable__Locat__71D1E811">
             <End Role="Location" EntitySet="Location" />
             <End Role="Timetable" EntitySet="Timetable" />
           </AssociationSet>
-          <AssociationSet Name="FK__Timetable__UnitI__4AB81AF0" Association="Self.FK__Timetable__UnitI__4AB81AF0">
+          <AssociationSet Name="FK__Timetable__UnitI__70DDC3D8" Association="Self.FK__Timetable__UnitI__70DDC3D8">
             <End Role="StudyUnits" EntitySet="StudyUnits" />
             <End Role="Timetable" EntitySet="Timetable" />
           </AssociationSet>
-          <AssociationSet Name="FK__UnitCours__Cours__44FF419A" Association="Self.FK__UnitCours__Cours__44FF419A">
+          <AssociationSet Name="FK__UnitCours__Cours__6D0D32F4" Association="Self.FK__UnitCours__Cours__6D0D32F4">
             <End Role="Courses" EntitySet="Courses" />
             <End Role="UnitCourse" EntitySet="UnitCourse" />
           </AssociationSet>
-          <AssociationSet Name="FK__UnitCours__UnitI__45F365D3" Association="Self.FK__UnitCours__UnitI__45F365D3">
+          <AssociationSet Name="FK__UnitCours__UnitI__6E01572D" Association="Self.FK__UnitCours__UnitI__6E01572D">
             <End Role="StudyUnits" EntitySet="StudyUnits" />
             <End Role="UnitCourse" EntitySet="UnitCourse" />
           </AssociationSet>
-          <AssociationSet Name="FK__UnitLectu__Lectu__46E78A0C" Association="Self.FK__UnitLectu__Lectu__46E78A0C">
+          <AssociationSet Name="FK__UnitLectu__Lectu__6EF57B66" Association="Self.FK__UnitLectu__Lectu__6EF57B66">
             <End Role="Lecturers" EntitySet="Lecturers" />
             <End Role="UnitLecturer" EntitySet="UnitLecturer" />
           </AssociationSet>
-          <AssociationSet Name="FK__UnitLectu__UnitI__47DBAE45" Association="Self.FK__UnitLectu__UnitI__47DBAE45">
+          <AssociationSet Name="FK__UnitLectu__UnitI__6FE99F9F" Association="Self.FK__UnitLectu__UnitI__6FE99F9F">
             <End Role="StudyUnits" EntitySet="StudyUnits" />
             <End Role="UnitLecturer" EntitySet="UnitLecturer" />
           </AssociationSet>
@@ -331,6 +362,7 @@
           <Property Name="CourseName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CourseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="StudyUnits" Relationship="Self.UnitCourse" FromRole="Courses" ToRole="StudyUnits" />
+          <NavigationProperty Name="Lecturers" Relationship="CoursesDBModel.FK__Lecturers__Cours__72C60C4A" FromRole="Cours" ToRole="Lecturer" />
         </EntityType>
         <EntityType Name="Lecturer">
           <Key>
@@ -342,6 +374,8 @@
           <Property Name="LecturerRoom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="StudyUnits" Relationship="Self.UnitLecturer" FromRole="Lecturers" ToRole="StudyUnits" />
           <Property Name="LecturerJob" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Course" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Cours" Relationship="CoursesDBModel.FK__Lecturers__Cours__72C60C4A" FromRole="Lecturer" ToRole="Cours" />
         </EntityType>
         <EntityType Name="StudyUnit">
           <Key>
@@ -431,6 +465,10 @@
           <AssociationSet Name="AspNetUserRoles" Association="CoursesDBModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lecturers__Cours__72C60C4A" Association="CoursesDBModel.FK__Lecturers__Cours__72C60C4A">
+            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Lecturer" EntitySet="Lecturers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -548,6 +586,20 @@
           <End Type="CoursesDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="CoursesDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <Association Name="FK__Lecturers__Cours__72C60C4A">
+          <End Type="CoursesDBModel.Cours" Role="Cours" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CoursesDBModel.Lecturer" Role="Lecturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Lecturer">
+              <PropertyRef Name="Course" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -566,6 +618,7 @@
           <EntitySetMapping Name="Lecturers">
             <EntityTypeMapping TypeName="CoursesDBModel.Lecturer">
               <MappingFragment StoreEntitySet="Lecturers">
+                <ScalarProperty Name="Course" ColumnName="Course" />
                 <ScalarProperty Name="LecturerJob" ColumnName="LecturerJob" />
                 <ScalarProperty Name="LecturerID" ColumnName="LecturerID" />
                 <ScalarProperty Name="LecturerName" ColumnName="LecturerName" />
