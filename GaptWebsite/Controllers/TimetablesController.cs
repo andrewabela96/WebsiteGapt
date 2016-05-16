@@ -18,6 +18,7 @@ namespace GaptWebsite.Controllers
         public ActionResult Index()
         {
             var timetables = db.Timetables.Include(t => t.StudyUnit);
+
             return View(timetables.ToList());
         }
 
@@ -37,31 +38,38 @@ namespace GaptWebsite.Controllers
         }
 
         // GET: Timetables/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.UnitID = new SelectList(db.StudyUnits, "UnitID", "UnitName");
+            ViewBag.LocationID = new SelectList(db.Locations, "ID", "RoomFloor");
             return View();
         }
 
         // POST: Timetables/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,tTime,UnitID,tDate")] Timetable timetable)
+        public ActionResult Create([Bind(Include = "ID,tTime,UnitID,tDate,LocationID")] Timetable timetable)
         {
+            timetable.DateModified = DateTime.Now;
             if (ModelState.IsValid)
             {
+
                 db.Timetables.Add(timetable);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.UnitID = new SelectList(db.StudyUnits, "UnitID", "UnitName", timetable.UnitID);
+            ViewBag.LocationID = new SelectList(db.Locations, "ID", "RoomFloor", timetable.LocationID);
             return View(timetable);
         }
 
         // GET: Timetables/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,6 +103,7 @@ namespace GaptWebsite.Controllers
         }
 
         // GET: Timetables/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +119,7 @@ namespace GaptWebsite.Controllers
         }
 
         // POST: Timetables/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
